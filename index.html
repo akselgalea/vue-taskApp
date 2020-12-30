@@ -74,7 +74,7 @@
                     },
 
                     delTask(task) {
-                        this.counter -= 1;
+                        if(task.done === false) this.counter -= 1;
                         this.tasks.splice(this.tasks.indexOf(task), 1)
                     }
                 }
