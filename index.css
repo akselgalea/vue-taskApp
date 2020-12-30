@@ -1,0 +1,58 @@
+:root {
+    font-size: 20px;
+    --titlefont: 'Redressed', cursive;
+    --normalfont: 'Roboto Mono', monospace;
+}
+
+.gfont {font-family: var(--titlefont);}
+
+body {
+    margin: 0px auto;
+    max-width: 1280px;
+    font-family: var(--normalfont)
+}
+
+.task {
+    color: red;
+}
+
+.task::first-letter {text-transform: uppercase}
+
+.completed {
+    color: green;
+    text-decoration: line-through;
+}
+
+#taskApp {
+    margin: auto;
+    width: 90%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#taskApp > *:not(:first-child) {
+    margin-top: 20px;
+}
+
+#taskApp form input {
+    border: solid 1px black;
+    border-radius: 3px;
+    background-color: rgba(250, 250, 240, 0.8);
+    padding: 0.5rem;
+}
+
+#taskApp form input::placeholder {
+    color: grey;
+    font-family: var(--normalfont)
+}
+
+#taskApp button {
+    font-family: var(--normalfont);
+    padding: 0.5rem;
+    cursor: pointer;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 3px;
+}

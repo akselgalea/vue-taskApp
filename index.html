@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <title>Vue task</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Redressed&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="taskApp">
+            <h1 class="gfont">{{ message }}</h1>
+            <p>Tareas por completar: {{counter}}</p>
+            <form v-on:submit.prevent="addTask">
+                <input type="text" v-model="newTask.name" placeholder="Nombre">
+                <button type="submit" name="button">Añadir</button>
+            </form>
+
+            <table>
+                <thead>
+                    <th>Tarea</th>
+                    <th>Hecho?</th>
+                </thead>
+                <tr v-for="task in tasks">
+                    <td class="task" :class="{completed: task.done}">{{task.name}}</td>
+                    <td v-if="task.done"> <button type="button" name="button" v-on:click="shiftTask(task)">Desmarcar</button> </td>
+                    <td v-else> <button type="button" name="button" v-on:click="shiftTask(task)">Marcar</button> </td>
+                    <td> <button type="button" v-on:click="delTask(task)">Borrar</button> </td>
+                </tr>
+            </table>
+        </div>
+
+        <script>
+            var app = new Vue({
+                el: '#taskApp',
+                data: {
+                    message: 'tasksApp en vue',
+                    counter: 2,
+                    tasks: [
+                        {
+                            name: 'Comprar pan',
+                            done: true
+                        },
+                        {
+                            name: 'Hacer la cama',
+                            done: false
+                        },
+                        {
+                            name: 'barrer',
+                            done: false
+                        }
+                    ],
+                    newTask: {},
+                    editedTask: {name: '', done: ''}
+                },
+                methods: {
+                    shiftTask(task) {
+                        task.done = !task.done;
+                        if(task.done === true) this.counter-=1;
+                        else this.counter+=1;
+                    },
+
+                    addTask() {
+                        if(this.newTask.name){
+                            this.tasks.push({
+                                name: this.newTask.name,
+                                done: false
+                            });
+                            this.counter += 1;
+                            this.newTask = {};
+                        }
+                    },
+
+                    delTask(task) {
+                        this.counter -= 1;
+                        this.tasks.splice(this.tasks.indexOf(task), 1)
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
